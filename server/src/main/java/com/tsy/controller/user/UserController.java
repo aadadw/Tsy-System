@@ -8,9 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 普通用户管理
@@ -33,5 +31,18 @@ public class UserController {
         log.info("用户分页查询，参数：{}",userPageQueryDTO);
         PageResult pageResult = userService.pageQuery(userPageQueryDTO);
         return  Result.success(pageResult);
+    }
+
+    /**
+     * 根据userid删除普通用户数据
+     * @param userId
+     * @return
+     */
+    @DeleteMapping("/{userId}")
+    @ApiOperation("删除普通用户")
+    public Result delete(@PathVariable Long userId){
+        log.info("删除普通用户，userId：{}",userId);
+        userService.deleteByUserId(userId);
+        return Result.success();
     }
 }

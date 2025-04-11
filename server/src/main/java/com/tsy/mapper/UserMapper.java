@@ -5,6 +5,7 @@ import com.tsy.dto.UserPageQueryDTO;
 import com.tsy.entity.UserInfo;
 import com.tsy.enumeration.OperationType;
 import com.tsy.vo.UserFullVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,4 +27,11 @@ public interface UserMapper {
      */
 
     List<UserFullVO> pageQuery(UserPageQueryDTO dto);
+
+    /**
+     * 根据userid删除userinfo和userbase的数据
+     * @param userId
+     */
+    @Delete("delete from user_info where user_id=#{userId}")
+    void deleteByUserId(Long userId);
 }

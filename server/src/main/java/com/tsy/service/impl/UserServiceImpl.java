@@ -12,6 +12,7 @@ import com.tsy.service.UserService;
 import com.tsy.vo.UserFullVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,20 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private AuthMapper authMapper;
+    /**
+     * 根据userid删除数据
+     * @param userId
+     */
+    @Override
+    @Transactional
+    public void deleteByUserId(Long userId) {
+        //这里必须先删除外联表info才能删除主表base要不报错
+        userMapper.deleteByUserId(userId);
+        authMapper.deleteById(userId);
+    }
+
     /**
      * 用户分页查询
      * @param dto
@@ -32,4 +47,5 @@ public class UserServiceImpl implements UserService {
         Page<UserFullVO> page = (Page<UserFullVO>) voList;
         return new PageResult(page.getTotal(), page.getResult());
     }
+
 }
