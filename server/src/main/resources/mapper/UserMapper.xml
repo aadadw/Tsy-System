@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsy.mapper.UserMapper">
+    <insert id="insert">
+        insert into user_info (
+            user_id, avatar_url, gender, age, height, weight,
+            bio, goal, level, create_time, update_time
+        )
+        values (
+                   #{userId}, #{avatarUrl}, #{gender}, #{age}, #{height}, #{weight},
+                   #{bio}, #{goal}, #{level}, #{createTime}, #{updateTime}
+               )
+    </insert>
+    <select id="pageQuery" resultType="com.tsy.vo.UserFullVO">
+        SELECT
+            ub.id,
+            ub.username,
+            ub.phone,
+            ub.email,
+            ub.role,
+            ub.status,
+            ub.create_time,
+            ui.gender,
+            ui.age,
+            ui.height,
+            ui.weight,
+            ui.goal,
+            ui.level,
+            ui.bio,
+            ui.avatar_url
+        FROM user_base ub
+                 LEFT JOIN user_info ui ON ub.id = ui.user_id
+        WHERE ub.role = 'user' -- 你可以加过滤条件
+    </select>
+
+
+</mapper>

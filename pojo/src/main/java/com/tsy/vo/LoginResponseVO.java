@@ -15,8 +15,12 @@ import lombok.NoArgsConstructor;
 public class LoginResponseVO {
     @ApiModelProperty("主键值")
     private Long id;
-    @ApiModelProperty("性名")
-    private String name;
+//    @ApiModelProperty("性名")
+//    private String name;
+    @ApiModelProperty("邮箱")
+    private  String email;
+    @ApiModelProperty("电话")
+    private String phone;
     @ApiModelProperty("用户名")
     private String username;
     @ApiModelProperty("角色")

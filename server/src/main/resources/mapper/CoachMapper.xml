@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsy.mapper.CoachMapper">
+    <insert id="insert">
+        insert into coach_info (user_id, avatar_url, bio, certification_url, is_verified, speciality, years_experience, contact_wechat, video_intro_url, create_time, update_time)
+        VALUES (
+                   #{userId}, #{avatarUrl}, #{bio}, #{certificationUrl},
+                   #{isVerified}, #{speciality}, #{yearsExperience},
+                   #{contactWechat}, #{videoIntroUrl}, #{createTime}, #{updateTime}
+               )
+    </insert>
+
+</mapper>

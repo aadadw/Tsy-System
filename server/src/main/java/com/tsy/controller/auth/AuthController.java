@@ -2,6 +2,7 @@ package com.tsy.controller.auth;
 
 import com.tsy.constant.JwtClaimsConstant;
 import com.tsy.dto.LoginRequestDTO;
+import com.tsy.dto.RegisterDTO;
 import com.tsy.entity.UserBase;
 import com.tsy.propertise.JwtProperties;
 import com.tsy.result.Result;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 @Slf4j
@@ -36,7 +38,8 @@ public class AuthController {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public Result<LoginResponseVO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+    public Result<LoginResponseVO> login(HttpServletRequest request, @RequestBody LoginRequestDTO loginRequestDTO) {
+        log.info("🔥 真实请求路径：{}", request.getRequestURI());
         log.info("登录：{}", loginRequestDTO);
         UserBase userBase = authService.login(loginRequestDTO);
 
@@ -50,11 +53,26 @@ public class AuthController {
 
         LoginResponseVO loginResponseVO = LoginResponseVO.builder()
                 .id(userBase.getId())
-                .name(userBase.getName())
+                .email(userBase.getEmail())
                 .username(userBase.getUsername())
                 .token(token)
+                .role(userBase.getRole())
+                .phone(userBase.getPhone())
                 .build();
 
         return Result.success(loginResponseVO);
+    }
+
+    /**
+     * 用户注册
+     * @param registerDTO
+     * @return
+     */
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public Result add(@RequestBody RegisterDTO registerDTO){
+        log.info("用户注册：{}",registerDTO);
+        authService.add(registerDTO);
+        return Result.success();
     }
 }
