@@ -1,9 +1,11 @@
 package com.tsy.mapper;
 
+import com.tsy.dto.AdminUserUpdateDTO;
 import com.tsy.entity.UserBase;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface AuthMapper {
@@ -30,4 +32,10 @@ public interface AuthMapper {
 //    @Insert("insert into user_base (username, password, email, role, status, create_time, phone) " +
 //            "VALUES (#{username},#{password},#{email},#{role},#{status},#{createTime},#{phome})")
     void insert(UserBase userBase);
+
+    /**
+     * 修改用户基本信息
+     * @param dto
+     */
+    void updateBaseFields(AdminUserUpdateDTO dto);
 }

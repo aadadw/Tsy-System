@@ -5,5 +5,14 @@
         insert into user_base (username, password, email, role, status, create_time, phone)
         VALUES (#{username},#{password},#{email},#{role},#{status},#{createTime},#{phome})
     </insert>
+    <update id="updateBaseFields">
+        UPDATE user_base
+        SET username = #{username},
+            phone = #{phone},
+            email = #{email},
+            age = #{age},
+            status = #{status}
+        WHERE id = #{id}
+    </update>
 
 </mapper>
