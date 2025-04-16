@@ -4,7 +4,7 @@ import com.tsy.constant.JwtClaimsConstant;
 import com.tsy.dto.LoginRequestDTO;
 import com.tsy.dto.RegisterDTO;
 import com.tsy.entity.UserBase;
-import com.tsy.propertise.JwtProperties;
+import com.tsy.properties.JwtProperties;
 import com.tsy.result.Result;
 import com.tsy.service.AuthService;
 import com.tsy.utils.JwtUtil;

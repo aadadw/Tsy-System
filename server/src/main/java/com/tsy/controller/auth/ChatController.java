@@ -1,9 +1,8 @@
 package com.tsy.controller.auth;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tsy.dto.ChatRequestDTO;
-import com.tsy.propertise.DeepSeekPropertise;
+import com.tsy.properties.DeepSeekPropertise;
 import com.tsy.utils.HttpClientUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 @Api(tags = "deepseek聊天相关接口")
