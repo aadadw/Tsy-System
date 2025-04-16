@@ -25,5 +25,4 @@ public class RegisterDTO {
     private String speciality;//擅长方向（如增肌、减脂、产后恢复等）
     private Integer yearsExperience;
     private String contactWechat;//联系方式
-    private String videoIntroUrl;
 }

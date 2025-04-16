@@ -15,7 +15,6 @@ public class CoachInfo {
     private String speciality;
     private Integer yearsExperience;
     private String contactWechat;
-    private String videoIntroUrl;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 }
