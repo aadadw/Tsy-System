@@ -3,13 +3,16 @@
 <mapper namespace="com.tsy.mapper.UserMapper">
     <insert id="insert">
         insert into user_info (
-            user_id, avatar_url, gender, age, height, weight,
+            user_id, avatar_url, gender, height, weight,
             bio, goal, level, create_time, update_time
         )
         values (
-                   #{userId}, #{avatarUrl}, #{gender}, #{age}, #{height}, #{weight},
+                   #{userId}, #{avatarUrl}, #{gender}, #{height}, #{weight},
                    #{bio}, #{goal}, #{level}, #{createTime}, #{updateTime}
                )
+    </insert>
+    <insert id="register">
+
     </insert>
     <select id="pageQuery" resultType="com.tsy.vo.UserFullVO">
         SELECT
@@ -21,7 +24,6 @@
             ub.status,
             ub.create_time,
             ui.gender,
-            ui.age,
             ui.height,
             ui.weight,
             ui.goal,

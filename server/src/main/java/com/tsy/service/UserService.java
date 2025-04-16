@@ -1,6 +1,7 @@
 package com.tsy.service;
 
 import com.tsy.dto.UserPageQueryDTO;
+import com.tsy.dto.UserRegisterDTO;
 import com.tsy.result.PageResult;
 
 public interface UserService {
@@ -16,4 +17,10 @@ public interface UserService {
      * @return
      */
     PageResult pageQuery(UserPageQueryDTO userPageQueryDTO);
+
+//    /**
+//     * 普通用户注册
+//     * @param userRegisterDTO
+//     */
+//    void register(UserRegisterDTO userRegisterDTO);
 }

@@ -2,9 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsy.mapper.AuthMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into user_base (username, password, email, role, status, create_time, phone)
-        VALUES (#{username},#{password},#{email},#{role},#{status},#{createTime},#{phome})
+        insert into user_base (username, password, email, role, status, create_time, phone,age)
+        VALUES (#{username},#{password},#{email},#{role},#{status},#{createTime},#{phone},#{age})
     </insert>
+<!--    <insert id="register" useGeneratedKeys="true" keyProperty="id">-->
+<!--        INSERT INTO user_base (-->
+<!--            username,-->
+<!--            password,-->
+<!--            email,-->
+<!--            phone,-->
+<!--            age,-->
+<!--            role,-->
+<!--            status,-->
+<!--            create_time-->
+<!--        ) VALUES (-->
+<!--                     #{username},-->
+<!--                     #{password},-->
+<!--                     #{email},-->
+<!--                     #{phone},-->
+<!--                     #{age},-->
+<!--                     #{role},-->
+<!--                     #{status},-->
+<!--                     #{createTime}-->
+<!--                 )-->
+<!--    </insert>-->
     <update id="updateBaseFields">
         UPDATE user_base
         SET username = #{username},

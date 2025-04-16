@@ -1,6 +1,7 @@
 package com.tsy.controller.user;
 
 import com.tsy.dto.UserPageQueryDTO;
+import com.tsy.dto.UserRegisterDTO;
 import com.tsy.result.PageResult;
 import com.tsy.result.Result;
 import com.tsy.service.UserService;
@@ -45,4 +46,19 @@ public class UserController {
         userService.deleteByUserId(userId);
         return Result.success();
     }
+
+//    /**
+//     * 普通用户注册
+//     * @param userRegisterDTO
+//     * @return
+//     */
+//    @PostMapping("/register")
+//    @ApiOperation("用户注册")
+//    public Result<String> register(@RequestBody UserRegisterDTO userRegisterDTO) {
+//        log.info("普通用户注册：{}",userRegisterDTO);
+//        userService.register(userRegisterDTO);
+//        return Result.success();
+//
+//    }
+
 }

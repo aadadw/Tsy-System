@@ -17,5 +17,5 @@ public interface AuthService {
      * 用户注册
      * @param registerDTO
      */
-    void add(RegisterDTO registerDTO);
+    void register(RegisterDTO registerDTO);
 }

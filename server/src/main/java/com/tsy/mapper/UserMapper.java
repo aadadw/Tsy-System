@@ -34,4 +34,6 @@ public interface UserMapper {
      */
     @Delete("delete from user_info where user_id=#{userId}")
     void deleteByUserId(Long userId);
+
+
 }

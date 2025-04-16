@@ -70,9 +70,9 @@ public class AuthController {
      */
     @ApiOperation("用户注册")
     @PostMapping("/register")
-    public Result add(@RequestBody RegisterDTO registerDTO){
+    public Result register(@RequestBody RegisterDTO registerDTO){
         log.info("用户注册：{}",registerDTO);
-        authService.add(registerDTO);
+        authService.register(registerDTO);
         return Result.success();
     }
 }

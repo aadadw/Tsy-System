@@ -38,4 +38,10 @@ public interface AuthMapper {
      * @param dto
      */
     void updateBaseFields(AdminUserUpdateDTO dto);
+
+//    /**
+//     * 用户注册，写入基本信息表
+//     * @param userBase
+//     */
+//    void register(UserBase userBase);
 }

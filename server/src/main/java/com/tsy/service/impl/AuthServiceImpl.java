@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
@@ -65,7 +66,8 @@ public class AuthServiceImpl implements AuthService {
      * @param registerDTO
      */
     @Override
-    public void add(RegisterDTO registerDTO) {
+    @Transactional
+    public void register(RegisterDTO registerDTO) {
         //插入基本信息
         UserBase  userBase = new UserBase();
         BeanUtils.copyProperties(registerDTO,userBase);
