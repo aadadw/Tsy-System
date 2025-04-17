@@ -32,7 +32,19 @@
             ui.avatar_url
         FROM user_base ub
                  LEFT JOIN user_info ui ON ub.id = ui.user_id
-        WHERE ub.role = 'user' -- 你可以加过滤条件
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (
+                username LIKE CONCAT('%', #{keyword}, '%')
+                OR phone LIKE CONCAT('%', #{keyword}, '%')
+                OR email LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="true"> <!-- 永远成立，只是为了统一风格放进 where 块 -->
+                AND ub.role = 'user'
+            </if>
+        </where>
+        ORDER BY id DESC
     </select>
 
 

@@ -10,4 +10,5 @@ public class UserPageQueryDTO implements Serializable {
     private int page;
     //每页显示记录数
     private int pageSize;
+    private String keyword; // 支持用户名 / 手机号 / 邮箱模糊查询
 }
