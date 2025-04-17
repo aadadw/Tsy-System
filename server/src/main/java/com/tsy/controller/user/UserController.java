@@ -34,18 +34,18 @@ public class UserController {
         return  Result.success(pageResult);
     }
 
-    /**
-     * 根据userid删除普通用户数据
-     * @param userId
-     * @return
-     */
-    @DeleteMapping("/{userId}")
-    @ApiOperation("删除普通用户")
-    public Result delete(@PathVariable Long userId){
-        log.info("删除普通用户，userId：{}",userId);
-        userService.deleteByUserId(userId);
-        return Result.success();
-    }
+//    /**
+//     * 根据userid删除普通用户数据
+//     * @param userId
+//     * @return
+//     */
+//    @DeleteMapping("/{userId}")
+//    @ApiOperation("删除普通用户")
+//    public Result delete(@PathVariable Long userId){
+//        log.info("删除普通用户，userId：{}",userId);
+//        userService.deleteByUserId(userId);
+//        return Result.success();
+//    }
 
 //    /**
 //     * 普通用户注册

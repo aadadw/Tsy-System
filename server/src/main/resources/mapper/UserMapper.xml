@@ -11,9 +11,17 @@
                    #{bio}, #{goal}, #{level}, #{createTime}, #{updateTime}
                )
     </insert>
-    <insert id="register">
+    <update id="updateStatus">
+        UPDATE user_base
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+    <update id="markAsDeleted">
+        UPDATE user_base
+        SET status = 2
+        WHERE id = #{id}
+    </update>
 
-    </insert>
     <select id="pageQuery" resultType="com.tsy.vo.UserFullVO">
         SELECT
             ub.id,
@@ -33,6 +41,7 @@
         FROM user_base ub
                  LEFT JOIN user_info ui ON ub.id = ui.user_id
         <where>
+            AND ub.status != 2
             <if test="keyword != null and keyword != ''">
                 AND (
                 username LIKE CONCAT('%', #{keyword}, '%')

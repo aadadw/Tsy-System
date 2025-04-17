@@ -9,5 +9,43 @@
                    #{contactWechat}, #{createTime}, #{updateTime}
                )
     </insert>
+    <update id="markUserAsDeleted">
+        UPDATE user_base
+        SET status = 2
+        WHERE id = #{id}
+    </update>
+
+    <select id="pageQueryCoach" parameterType="com.tsy.dto.CoachPageQueryDTO" resultType="com.tsy.vo.CoachVO">
+        SELECT
+        ub.id,
+        ub.username,
+        ub.phone,
+        ub.email,
+        ub.status,
+        ub.create_time,
+        ci.avatar_url AS avatarUrl,
+        ci.bio,
+        ci.certification_url AS certificationUrl,
+        ci.is_verified AS isVerified,
+        ci.speciality,
+        ci.years_experience AS yearsExperience,
+        ci.contact_wechat AS contactWechat
+        FROM user_base ub
+        LEFT JOIN coach_info ci ON ub.id = ci.user_id
+        <where>
+            ub.role = 'coach'
+            AND ub.status != 2
+            <if test="keyword != null and keyword != ''">
+                AND (
+                ub.username LIKE CONCAT('%', #{keyword}, '%')
+                OR ub.phone LIKE CONCAT('%', #{keyword}, '%')
+                OR ub.email LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+        </where>
+        ORDER BY ub.id DESC
+    </select>
+
+
 
 </mapper>

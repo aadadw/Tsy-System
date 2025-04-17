@@ -8,6 +8,7 @@ import com.tsy.vo.UserFullVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -35,5 +36,17 @@ public interface UserMapper {
     @Delete("delete from user_info where user_id=#{userId}")
     void deleteByUserId(Long userId);
 
+    /**
+     * 修改状态
+     * @param id
+     * @param status
+     */
 
+    void updateStatus(Long id, Integer status);
+
+    /**
+     * 逻辑删除普通用户
+     * @param id
+     */
+    void markAsDeleted(Long id);
 }

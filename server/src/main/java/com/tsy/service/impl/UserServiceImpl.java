@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tsy.dto.UserPageQueryDTO;
 import com.tsy.dto.UserRegisterDTO;
+import com.tsy.dto.UserStatusDTO;
 import com.tsy.entity.UserBase;
 import com.tsy.entity.UserInfo;
 import com.tsy.mapper.AuthMapper;
@@ -27,15 +28,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthMapper authMapper;
     /**
-     * 根据userid删除数据
-     * @param userId
+     * 根据userid删除数据(logic
+     * @param id
      */
     @Override
-    @Transactional
-    public void deleteByUserId(Long userId) {
-        //这里必须先删除外联表info才能删除主表base要不报错
-        userMapper.deleteByUserId(userId);
-        authMapper.deleteById(userId);
+
+    public void logicDeleteById(Long id) {
+        userMapper.markAsDeleted(id);
     }
 
     /**
@@ -51,6 +50,11 @@ public class UserServiceImpl implements UserService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+
+    @Override
+    public void updateStatus(UserStatusDTO dto) {
+        userMapper.updateStatus(dto.getId(), dto.getStatus());
+    }
 //    /**
 //     * 普通用户注册
 //     * @param userRegisterDTO
