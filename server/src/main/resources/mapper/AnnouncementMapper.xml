@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tsy.mapper.AnnouncementMapper">
+
+    <insert id="insert" parameterType="com.tsy.entity.Announcement">
+        INSERT INTO announcement (
+            title, category, content, image_url, is_enabled, create_time, update_time
+        ) VALUES (
+                     #{title}, #{category}, #{content}, #{imageUrl}, #{isEnabled}, NOW(), NOW()
+                 )
+    </insert>
+    <update id="updateStatus">
+        UPDATE announcement
+        SET is_enabled = #{isEnabled}
+        WHERE id = #{id}
+    </update>
+    <update id="update">
+        UPDATE announcement
+        SET
+            title = #{title},
+            category = #{category},
+            content = #{content},
+            image_url = #{imageUrl},
+            is_enabled = #{isEnabled},
+            update_time = NOW()
+        WHERE id = #{id}
+    </update>
+    <select id="pageQuery" resultType="com.tsy.vo.AnnouncementVO">
+        SELECT
+        id,
+        title,
+        category,
+        content,
+        image_url,
+        is_enabled,
+        create_time
+        FROM announcement
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="category != null and category != ''">
+                AND category = #{category}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

@@ -1,8 +1,6 @@
 package com.tsy.controller.admin;
 
-import com.tsy.dto.AdminUserUpdateDTO;
-import com.tsy.dto.CoachPageQueryDTO;
-import com.tsy.dto.UserStatusDTO;
+import com.tsy.dto.*;
 import com.tsy.result.PageResult;
 import com.tsy.result.Result;
 import com.tsy.service.AdminService;
@@ -12,7 +10,7 @@ import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.tsy.dto.UserPageQueryDTO;
+
 @Slf4j
 @Api(tags = "管理员相关接口")
 @RestController
@@ -100,6 +98,27 @@ public class AdminController {
     @DeleteMapping("/user/{id}")
     public Result deleteUser(@PathVariable Long id) {
         userService.logicDeleteById(id);
+        return Result.success();
+    }
+
+    /**
+     * 分页查询教练资质审核
+     * @param dto
+     * @return
+     */
+    @GetMapping("/coach/qualification/list")
+    public Result<PageResult> list( CoachQualificationQueryDTO dto) {
+        return Result.success(coachService.pageQueryForReview(dto));
+    }
+
+    /**
+     * 认证教练资质
+     * @param dto
+     * @return
+     */
+    @PutMapping("/coach/qualification/verify")
+    public Result verify(@RequestBody CoachVerifyDTO dto) {
+        coachService.updateVerificationStatus(dto);
         return Result.success();
     }
 }

@@ -45,7 +45,34 @@
         </where>
         ORDER BY ub.id DESC
     </select>
+    <select id="pageQueryForReview" resultType="com.tsy.vo.CoachQualificationVO">
+        SELECT
+        ub.id AS userId,
+        ub.username,
+        ub.phone,
+        ci.avatar_url AS avatarUrl,
+        ci.certification_url AS certificationUrl,
+        ci.speciality,
+        ci.years_experience AS yearsExperience,
+        ci.bio
+        FROM user_base ub
+        LEFT JOIN coach_info ci ON ub.id = ci.user_id
+        <where>
+            ci.is_verified = 2
+            <if test="keyword != null and keyword != ''">
+                AND (
+                ub.username LIKE CONCAT('%', #{keyword}, '%')
+                OR ub.phone LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+        </where>
+        ORDER BY ub.id DESC
+    </select>
 
-
+    <update id="updateVerificationStatus">
+        UPDATE coach_info
+        SET is_verified = #{isVerified}
+        WHERE user_id = #{userId}
+    </update>
 
 </mapper>

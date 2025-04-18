@@ -1,6 +1,8 @@
 package com.tsy.service;
 
 import com.tsy.dto.CoachPageQueryDTO;
+import com.tsy.dto.CoachQualificationQueryDTO;
+import com.tsy.dto.CoachVerifyDTO;
 import com.tsy.dto.UserStatusDTO;
 import com.tsy.result.PageResult;
 
@@ -23,4 +25,17 @@ public interface CoachService {
      * @param id
      */
     void deleteCoachLogic(Long id);
+
+    /**
+     * 分页查询教练资质审核
+     * @param dto
+     * @return
+     */
+    PageResult pageQueryForReview(CoachQualificationQueryDTO dto);
+
+    /**
+     * 认证教练资质
+     * @param dto
+     */
+    void updateVerificationStatus(CoachVerifyDTO dto);
 }
