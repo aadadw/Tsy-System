@@ -76,5 +76,14 @@ public class CoachServiceImpl implements CoachService {
         coachMapper.updateVerificationStatus(dto.getUserId(), dto.getIsVerified());
     }
 
+    /**
+     * 通过/驳回教练资质认证
+     * @param dto
+     */
+    @Override
+    public void verifyCoach(CoachVerifyDTO dto) {
+        coachMapper.updateVerifyStatus(dto);
+    }
+
 
 }

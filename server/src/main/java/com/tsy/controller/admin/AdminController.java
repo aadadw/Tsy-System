@@ -121,4 +121,16 @@ public class AdminController {
         coachService.updateVerificationStatus(dto);
         return Result.success();
     }
+
+    /**
+     *通过/驳回教练资质认证
+     * @param dto
+     * @return
+     */
+    @PutMapping("/coach/verify")
+    public Result verifyCoach(@RequestBody CoachVerifyDTO dto) {
+        coachService.verifyCoach(dto);
+        return Result.success();
+    }
+
 }

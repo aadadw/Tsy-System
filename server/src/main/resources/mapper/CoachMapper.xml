@@ -74,5 +74,20 @@
         SET is_verified = #{isVerified}
         WHERE user_id = #{userId}
     </update>
+    <update id="updateVerifyStatus">
+        UPDATE coach_info
+        SET is_verified = #{isVerified},
+        reject_reason =
+        <choose>
+            <when test="isVerified == 3">
+                #{rejectReason}
+            </when>
+            <otherwise>
+                NULL
+            </otherwise>
+        </choose>,
+        update_time = NOW()
+        WHERE user_id = #{userId}
+    </update>
 
 </mapper>

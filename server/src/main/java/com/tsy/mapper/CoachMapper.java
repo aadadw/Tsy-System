@@ -3,6 +3,7 @@ package com.tsy.mapper;
 import com.tsy.annotation.AutoFill;
 import com.tsy.dto.CoachPageQueryDTO;
 import com.tsy.dto.CoachQualificationQueryDTO;
+import com.tsy.dto.CoachVerifyDTO;
 import com.tsy.entity.CoachInfo;
 import com.tsy.enumeration.OperationType;
 import com.tsy.vo.CoachQualificationVO;
@@ -45,4 +46,10 @@ public interface CoachMapper {
      * @param isVerified
      */
     void updateVerificationStatus(Long userId, Integer isVerified);
+
+    /**
+     * 通过/驳回教练资质认证
+     * @param dto
+     */
+    void updateVerifyStatus(CoachVerifyDTO dto);
 }

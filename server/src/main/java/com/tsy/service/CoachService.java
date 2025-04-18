@@ -38,4 +38,10 @@ public interface CoachService {
      * @param dto
      */
     void updateVerificationStatus(CoachVerifyDTO dto);
+
+    /**
+     * 通过/驳回教练资质认证
+     * @param dto
+     */
+    void verifyCoach(CoachVerifyDTO dto);
 }
