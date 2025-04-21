@@ -76,6 +76,7 @@ public class AuthServiceImpl implements AuthService {
         //设置一些默认数据
         userBase.setStatus(1);//默认启用
         userBase.setCreateTime(LocalDateTime.now());
+        log.info("测试一下基本数据的url：{}",userBase.getAvatarUrl());
         log.info("插入基本用户数据，userbase：{}",userBase);
         authMapper.insert(userBase);
         Long id = userBase.getId();//回填id

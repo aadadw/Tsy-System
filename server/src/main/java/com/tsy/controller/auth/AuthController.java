@@ -47,8 +47,8 @@ public class AuthController {
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID, userBase.getId());
         String token = JwtUtil.createJWT(
-                jwtProperties.getAdminSecretKey(),
-                jwtProperties.getAdminTtl(),
+                jwtProperties.getAuthSecretKey(),
+                jwtProperties.getAuthTtl(),
                 claims);
 
         LoginResponseVO loginResponseVO = LoginResponseVO.builder()
@@ -58,6 +58,7 @@ public class AuthController {
                 .token(token)
                 .role(userBase.getRole())
                 .phone(userBase.getPhone())
+                .avatarUrl(userBase.getAvatarUrl())
                 .build();
 
         return Result.success(loginResponseVO);

@@ -27,5 +27,7 @@ public class LoginResponseVO {
     private String role;
     @ApiModelProperty("jwt令牌")
     private String token;
+    @ApiModelProperty("头像链接")
+    private String avatarUrl;
 
 }

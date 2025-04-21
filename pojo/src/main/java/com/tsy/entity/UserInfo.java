@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class UserInfo {
     private Long userId; // 对应 user_base.id
-    private String avatarUrl;
+//    private String avatarUrl;
     private String gender;
     private Double height;
     private Double weight;

@@ -3,11 +3,11 @@
 <mapper namespace="com.tsy.mapper.UserMapper">
     <insert id="insert">
         insert into user_info (
-            user_id, avatar_url, gender, height, weight,
+            user_id, gender, height, weight,
             bio, goal, level, create_time, update_time
         )
         values (
-                   #{userId}, #{avatarUrl}, #{gender}, #{height}, #{weight},
+                   #{userId}, #{gender}, #{height}, #{weight},
                    #{bio}, #{goal}, #{level}, #{createTime}, #{updateTime}
                )
     </insert>

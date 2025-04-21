@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class CoachInfo {
     private Long userId;
-    private String avatarUrl;
+//    private String avatarUrl;
     private String bio;
     private String certificationUrl;
     private Integer isVerified;

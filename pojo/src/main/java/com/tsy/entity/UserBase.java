@@ -12,6 +12,7 @@ public class UserBase {
     private String email;
     private String phone;
     private Integer age;
+    private String avatarUrl;
     private String role; // admin, coach, user
     private Integer status; // 0-正常，1-禁用
     private LocalDateTime createTime;
