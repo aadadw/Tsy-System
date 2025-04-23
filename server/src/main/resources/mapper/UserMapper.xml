@@ -55,6 +55,12 @@
         </where>
         ORDER BY id DESC
     </select>
+    <select id="countTodayPunch" resultType="int">
+        SELECT COUNT(*)
+        FROM user_training_log
+        WHERE user_id = #{userId}
+          AND checkin_date = #{today}
+    </select>
 
 
 </mapper>

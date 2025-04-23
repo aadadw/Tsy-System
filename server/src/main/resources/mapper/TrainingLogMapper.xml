@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsy.mapper.TrainingLogMapper">
+    <insert id="insert" parameterType="com.tsy.entity.UserTrainingLog">
+        INSERT INTO user_training_log (
+            user_id,
+            project_name,
+            duration_minutes,
+            calories,
+            checkin_date,
+            created_at
+        ) VALUES (
+                     #{userId},
+                     #{projectName},
+                     #{durationMinutes},
+                     #{calories},
+                     #{checkinDate},
+                     #{createdAt}
+                 )
+    </insert>
+    <select id="selectGoalStats" resultType="com.tsy.dto.UserGoalStatsDTO">
+        select
+            count(*) as checkinCount,
+            sum(duration_minutes) as totalDuration,
+            sum(calories) as totalCalories,
+            count(distinct checkin_date) as progressDays
+        from user_training_log
+        where user_id = #{userId}
+          and checkin_date >= #{startDate}
+    </select>
+
+    <select id="getLastCheckinDate" resultType="java.time.LocalDate">
+        select max(checkin_date)
+        from user_training_log
+        where user_id = #{userId}
+          and checkin_date >= #{startDate}
+    </select>
+
+    <select id="countThisWeekCheckinDays" resultType="java.lang.Integer">
+        select count(distinct checkin_date)
+        from user_training_log
+        where user_id = #{userId}
+          and checkin_date >= #{startDate}
+          and yearweek(checkin_date, 1) = yearweek(curdate(), 1)
+    </select>
+    <select id="queryDailyCalories" resultType="com.tsy.vo.DailyCalorieVO">
+        SELECT
+            checkin_date AS date,
+            SUM(calories) AS calories
+        FROM user_training_log
+        WHERE user_id = #{userId}
+          AND checkin_date BETWEEN #{startDate} AND #{endDate}
+        GROUP BY checkin_date
+        ORDER BY checkin_date
+    </select>
+    <select id="countCheckinsPerDay" resultType="com.tsy.dto.TrendPointDTO">
+        SELECT
+            checkin_date AS date,
+            COUNT(*) AS count
+        FROM user_training_log
+        WHERE user_id = #{userId}
+          AND checkin_date BETWEEN #{startDate} AND #{endDate}
+        GROUP BY checkin_date
+        ORDER BY checkin_date
+    </select>
+    <select id="queryLogsBetween" resultType="com.tsy.entity.UserTrainingLog">
+        SELECT * FROM user_training_log
+        WHERE user_id = #{userId}
+          AND checkin_date BETWEEN #{startDate} AND #{endDate}
+    </select>
+    <select id="queryProjectProportion" resultType="com.tsy.vo.ProjectProportionVO">
+        SELECT
+            project_name AS name,
+            SUM(duration_minutes) AS value
+        FROM
+            user_training_log
+        WHERE
+            user_id = #{userId}
+        GROUP BY
+            project_name
+        ORDER BY
+            value DESC
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsy.mapper.ExerciseTagWeightMapper">
+
+    <select id="selectAll" resultType="com.tsy.entity.ExerciseTagWeight">
+        SELECT
+            id,
+            project_name AS projectName,
+            肌肉增长 AS muscle,
+            塑形 AS shape,
+            核心力量 AS core,
+            基础代谢提升 AS metabolism,
+            脂肪燃烧 AS fatBurn,
+            心肺功能 AS cardio,
+            柔韧性 AS flexibility
+        FROM exercise_tag_weight
+    </select>
+</mapper>
