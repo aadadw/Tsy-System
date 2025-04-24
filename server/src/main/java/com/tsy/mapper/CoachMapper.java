@@ -2,6 +2,7 @@ package com.tsy.mapper;
 
 import com.tsy.annotation.AutoFill;
 import com.tsy.dto.CoachPageQueryDTO;
+import com.tsy.dto.CoachProfileUpdateDTO;
 import com.tsy.dto.CoachQualificationQueryDTO;
 import com.tsy.dto.CoachVerifyDTO;
 import com.tsy.entity.CoachInfo;
@@ -9,6 +10,7 @@ import com.tsy.enumeration.OperationType;
 import com.tsy.vo.CoachQualificationVO;
 import com.tsy.vo.CoachVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -52,4 +54,13 @@ public interface CoachMapper {
      * @param dto
      */
     void updateVerifyStatus(CoachVerifyDTO dto);
+    @Select("select * from coach_info where user_id = #{userId} ")
+    CoachInfo selectById(Long userId);
+
+    /**
+     * 更行个人资料
+     * @param dto
+     */
+    @AutoFill(OperationType.UPDATE)
+    void updateProfile(CoachProfileUpdateDTO dto);
 }

@@ -2,21 +2,23 @@ package com.tsy.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.tsy.dto.CoachPageQueryDTO;
-import com.tsy.dto.CoachQualificationQueryDTO;
-import com.tsy.dto.CoachVerifyDTO;
-import com.tsy.dto.UserStatusDTO;
+import com.tsy.dto.*;
+import com.tsy.entity.CoachInfo;
+import com.tsy.entity.UserBase;
 import com.tsy.mapper.CoachMapper;
 import com.tsy.mapper.UserMapper;
 import com.tsy.result.PageResult;
 import com.tsy.service.CoachService;
+import com.tsy.vo.CoachProfileVO;
 import com.tsy.vo.CoachQualificationVO;
 import com.tsy.vo.CoachVO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class CoachServiceImpl implements CoachService {
     @Autowired
@@ -83,6 +85,33 @@ public class CoachServiceImpl implements CoachService {
     @Override
     public void verifyCoach(CoachVerifyDTO dto) {
         coachMapper.updateVerifyStatus(dto);
+    }
+
+    /**
+     * 获取教练个人资料
+     * @param userId
+     * @return
+     */
+    @Override
+    public CoachProfileVO getProfile(Long userId) {
+        /*下面两个mapper的select其实可以外键链接一次性查完的，也省去了copy的逻辑*/
+        CoachInfo coach = coachMapper.selectById(userId);
+        UserBase user = userMapper.selectById(userId);
+        CoachProfileVO vo = new CoachProfileVO();
+        BeanUtils.copyProperties(user,vo);
+        BeanUtils.copyProperties(coach,vo);
+        /*上面两次拷贝感觉会出事，可能漏数据或是覆盖为空？*/
+        log.info("测试两次拷贝结果：{}",vo);
+        return vo;
+    }
+
+    /**
+     * 更新个人资料
+     * @param dto
+     */
+    @Override
+    public void updateProfile(CoachProfileUpdateDTO dto) {
+        coachMapper.updateProfile(dto);
     }
 
 

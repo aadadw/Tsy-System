@@ -89,5 +89,20 @@
         update_time = NOW()
         WHERE user_id = #{userId}
     </update>
+    <!-- CoachInfoMapper.xml -->
+    <update id="updateProfile" >
+        UPDATE coach_info
+        <set>
+            <if test="bio != null">bio = #{bio},</if>
+            <if test="certificationUrl != null">certification_url = #{certificationUrl},</if>
+            <if test="speciality != null">speciality = #{speciality},</if>
+            <if test="yearsExperience != null">years_experience = #{yearsExperience},</if>
+            <if test="contactWechat != null">contact_wechat = #{contactWechat},</if>
+            <!-- 可选：每次资料更新后重置认证状态为待审核 -->
+            is_verified = 2,
+            update_time = NOW()
+        </set>
+        WHERE user_id = #{userId}
+    </update>
 
 </mapper>

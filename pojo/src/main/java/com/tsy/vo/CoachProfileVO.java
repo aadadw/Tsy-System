@@ -1,14 +1,12 @@
-package com.tsy.entity;
-
+package com.tsy.vo;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
-public class CoachInfo {
+public class CoachProfileVO {
     private Long userId;
-//    private String avatarUrl;
+    private String username;
+    private String avatarUrl;
     private String bio;
     private String certificationUrl;
     private Integer isVerified;
@@ -16,6 +14,4 @@ public class CoachInfo {
     private Integer yearsExperience;
     private String contactWechat;
     private String rejectReason;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
 }

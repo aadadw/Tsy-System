@@ -1,10 +1,8 @@
 package com.tsy.service;
 
-import com.tsy.dto.CoachPageQueryDTO;
-import com.tsy.dto.CoachQualificationQueryDTO;
-import com.tsy.dto.CoachVerifyDTO;
-import com.tsy.dto.UserStatusDTO;
+import com.tsy.dto.*;
 import com.tsy.result.PageResult;
+import com.tsy.vo.CoachProfileVO;
 
 public interface CoachService {
     /**
@@ -44,4 +42,17 @@ public interface CoachService {
      * @param dto
      */
     void verifyCoach(CoachVerifyDTO dto);
+
+    /**
+     * 获取教练个人资料
+     * @param userId
+     * @return
+     */
+    CoachProfileVO getProfile(Long userId);
+
+    /**
+     * 更新个人资料
+     * @param dto
+     */
+    void updateProfile(CoachProfileUpdateDTO dto);
 }

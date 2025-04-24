@@ -2,6 +2,7 @@ package com.tsy.mapper;
 
 import com.tsy.annotation.AutoFill;
 import com.tsy.dto.UserPageQueryDTO;
+import com.tsy.entity.UserBase;
 import com.tsy.entity.UserInfo;
 import com.tsy.enumeration.OperationType;
 import com.tsy.vo.UserFullVO;
@@ -66,4 +67,6 @@ public interface UserMapper {
      * @return
      */
     int countTodayPunch(Long userId, LocalDate today);
+    @Select("select * from user_base where id=#{userId}")
+    UserBase selectById(Long userId);
 }
