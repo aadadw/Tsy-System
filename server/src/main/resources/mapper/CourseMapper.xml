@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsy.mapper.CourseMapper">
+    <insert id="insert" parameterType="com.tsy.entity.Course" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO mysystem.course (
+            coach_id,
+            name,
+            description,
+            duration_minutes,
+            difficulty,
+            category,
+            tags,
+            cover_url,
+            max_enrollment,
+            create_time,
+            update_time
+        ) VALUES (
+                     #{coachId},
+                     #{name},
+                     #{description},
+                     #{durationMinutes},
+                     #{difficulty},
+                     #{category},
+                     #{tags},
+                     #{coverUrl},
+                     #{maxEnrollment},
+                     #{createTime},
+                     #{updateTime}
+                 )
+    </insert>
+    <select id="selectByCoachIdAndConditions" resultType="com.tsy.vo.CourseVO">
+        SELECT
+        c.id,
+        c.coach_id,
+        c.name,
+        c.description,
+        c.duration_minutes,
+        c.difficulty,
+        c.category,
+        c.tags,
+        c.cover_url,
+        c.max_enrollment,
+        c.create_time,
+        c.update_time,
+        COUNT(e.id) AS enrolled_count
+        FROM mysystem.course c
+        LEFT JOIN mysystem.course_enrollment e
+        ON c.id = e.course_id AND e.status = '报名中'
+        WHERE c.coach_id = #{coachId}
+        <if test="name != null and name != ''">
+            AND c.name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="tag != null and tag != ''">
+            AND c.tags LIKE CONCAT('%', #{tag}, '%')
+        </if>
+        GROUP BY
+        c.id, c.coach_id, c.name, c.description, c.duration_minutes,
+        c.difficulty, c.category, c.tags, c.cover_url, c.max_enrollment,
+        c.create_time, c.update_time
+        ORDER BY c.create_time DESC
+    </select>
+
+
+
+</mapper>
