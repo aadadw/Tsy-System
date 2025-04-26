@@ -6,6 +6,7 @@ import com.tsy.entity.UserBase;
 import com.tsy.entity.UserInfo;
 import com.tsy.enumeration.OperationType;
 import com.tsy.vo.UserFullVO;
+import com.tsy.vo.UserProfileVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -69,4 +70,16 @@ public interface UserMapper {
     int countTodayPunch(Long userId, LocalDate today);
     @Select("select * from user_base where id=#{userId}")
     UserBase selectById(Long userId);
+
+    /**
+     * 用户个人信息
+     * @param userId
+     */
+    UserProfileVO getUserProfile(Long userId);
+
+    /**
+     * 更新普通用户信息
+     * @param info
+     */
+    void updateById(UserInfo info);
 }

@@ -6,9 +6,11 @@ import com.tsy.entity.UserTrainingLog;
 import com.tsy.vo.DailyCalorieVO;
 import com.tsy.vo.ProjectProportionVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface TrainingLogMapper {
@@ -84,4 +86,18 @@ public interface TrainingLogMapper {
      * @return
      */
     List<ProjectProportionVO> queryProjectProportion(Long userId);
+
+    /**
+     * 获得用户<项目-时间>map
+     * @param userId
+     * @return
+     */
+    List<Map<String, Object>> selectProjectDurations(@Param("userId") Long userId);
+
+    /**
+     * 获取用户课程总时长
+     * @param userId
+     * @return
+     */
+    Integer selectTotalDuration(Long userId);
 }

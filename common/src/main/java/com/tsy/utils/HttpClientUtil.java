@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class HttpClientUtil {
 
-    static final  int TIMEOUT_MSEC = 3 * 10000; // 读取响应超时（30秒）
+    static final  int TIMEOUT_MSEC = 5 * 10000; // 读取响应超时（30秒）
 
     /**
      * 发送GET方式请求

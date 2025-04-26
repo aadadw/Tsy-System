@@ -4,11 +4,13 @@ import com.github.pagehelper.PageInfo;
 import com.tsy.context.BaseContext;
 import com.tsy.dto.CoachProfileUpdateDTO;
 import com.tsy.dto.CourseAddDTO;
+import com.tsy.result.PageResult;
 import com.tsy.result.Result;
 import com.tsy.service.CoachService;
 import com.tsy.service.CourseService;
 import com.tsy.vo.CoachProfileVO;
 import com.tsy.vo.CourseVO;
+import com.tsy.vo.ReservationVO;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +68,43 @@ public class CoachController {
         Long userId = BaseContext.getCurrentId(); // 从登录态获取
         dto.setUserId(userId);
         coachService.updateProfile(dto);
+        return Result.success();
+    }
+
+    /**
+     * 查看学员报名情况
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/reservations")
+    public Result<PageResult> listReservations(
+            @RequestParam int page,
+            @RequestParam int pageSize) {
+
+        PageResult  result = courseService.listReservations(page, pageSize);
+        return Result.success(result);
+    }
+
+    /**
+     * 确认预约
+     * @param reservationId 预约ID
+     * @return 操作结果
+     */
+    @PostMapping("/reservations/{reservationId}/confirm")
+    public Result confirmReservation(@PathVariable Long reservationId) {
+        courseService.confirmReservation(reservationId);
+        return Result.success();
+    }
+
+    /**
+     * 取消预约
+     * @param reservationId 预约ID
+     * @return 操作结果
+     */
+    @PostMapping("/reservations/{reservationId}/cancel")
+    public Result cancelReservation(@PathVariable Long reservationId) {
+        courseService.cancelReservation(reservationId);
         return Result.success();
     }
 

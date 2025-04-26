@@ -59,6 +59,52 @@
         c.create_time, c.update_time
         ORDER BY c.create_time DESC
     </select>
+    <select id="selectUserCourses" resultType="com.tsy.vo.CourseVO">
+        SELECT
+        c.id,
+        c.name,
+        c.description,
+        c.duration_minutes AS durationMinutes,
+        c.difficulty,
+        c.category,
+        c.tags,
+        c.cover_url AS coverUrl,
+        c.max_enrollment AS maxEnrollment,
+        DATE_FORMAT(c.create_time, '%Y-%m-%d %H:%i:%s') AS createTime,
+        u.username AS coach,
+        (
+        SELECT COUNT(*)
+        FROM course_enrollment ce
+        WHERE ce.course_id = c.id AND ce.status != '取消'
+        ) AS enrolledCount
+        FROM course c
+        LEFT JOIN user_base u ON c.coach_id = u.id
+        <where>
+            <if test="name != null and name != ''">
+                AND c.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="coach != null and coach != ''">
+                AND u.username LIKE CONCAT('%', #{coach}, '%')
+            </if>
+            <if test="level != null and level != ''">
+                AND c.difficulty = #{level}
+            </if>
+            <if test="category != null and category != ''">
+                AND c.category = #{category}
+            </if>
+            <!-- ✅ 排除当前用户已报名的课程 -->
+            <if test="userId != null">
+                AND NOT EXISTS (
+                SELECT 1
+                FROM course_enrollment ce2
+                WHERE ce2.course_id = c.id
+                AND ce2.user_id = #{userId}
+                AND ce2.status != '取消'
+                )
+            </if>
+        </where>
+        ORDER BY c.create_time DESC
+    </select>
 
 
 

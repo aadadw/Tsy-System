@@ -81,4 +81,26 @@
         ORDER BY
             value DESC
     </select>
+    <!-- 查询每个动作的总时长 -->
+    <select id="selectProjectDurations" parameterType="long" resultType="map">
+        SELECT
+            project_name,
+            SUM(duration_minutes) AS total_duration
+        FROM
+            mysystem.user_training_log
+        WHERE
+            user_id = #{userId}
+        GROUP BY
+            project_name
+    </select>
+
+    <!-- 查询总时长 -->
+    <select id="selectTotalDuration" parameterType="long" resultType="int">
+        SELECT
+            SUM(duration_minutes)
+        FROM
+            mysystem.user_training_log
+        WHERE
+            user_id = #{userId}
+    </select>
 </mapper>

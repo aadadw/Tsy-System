@@ -14,5 +14,6 @@ public class CourseVO {
     private String coverUrl;
     private Integer maxEnrollment;
     private String createTime;
-    private String enrolledCount;//目前已报名人数
+    private Integer enrolledCount;//目前已报名人数
+    private String coach; // 教练用户名
 }

@@ -5,6 +5,7 @@ import com.tsy.result.PageResult;
 import com.tsy.vo.ProjectProportionVO;
 import com.tsy.vo.TrendDataVO;
 import com.tsy.vo.UserGoalVO;
+import com.tsy.vo.UserProfileVO;
 
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,18 @@ public interface UserService {
      * @return
      */
     List<ProjectProportionVO> getTrainingProportion(Long userId);
+
+    /**
+     * 用户个人资料数据回显
+     * @return
+     */
+    UserProfileVO getUserProfile();
+
+    /**
+     * 修改个人信息
+     * @param userProfileUpdateDTO
+     */
+    void updateProfile(UserProfileUpdateDTO userProfileUpdateDTO);
 
 //    /**
 //     * 普通用户注册

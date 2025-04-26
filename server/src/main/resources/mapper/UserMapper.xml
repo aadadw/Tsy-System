@@ -21,6 +21,16 @@
         SET status = 2
         WHERE id = #{id}
     </update>
+    <update id="updateById">
+        UPDATE mysystem.user_info
+        SET gender = #{gender},
+            height = #{height},
+            weight = #{weight},
+            goal = #{goal},
+            bio = #{bio},
+            update_time = NOW()
+        WHERE user_id = #{userId}
+    </update>
 
     <select id="pageQuery" resultType="com.tsy.vo.UserFullVO">
         SELECT
@@ -60,6 +70,27 @@
         FROM user_training_log
         WHERE user_id = #{userId}
           AND checkin_date = #{today}
+    </select>
+    <select id="getUserProfile" resultType="com.tsy.vo.UserProfileVO">
+        SELECT
+            ub.username,
+            ub.email,
+            ub.phone,
+            ub.age,
+            ub.avatar_url,
+            ui.gender,
+            ui.height,
+            ui.weight,
+            ui.goal,
+            ui.bio
+        FROM
+            mysystem.user_base ub
+                LEFT JOIN
+            mysystem.user_info ui
+            ON
+                ub.id = ui.user_id
+        WHERE
+            ub.id = #{userId}
     </select>
 
 

@@ -312,5 +312,45 @@ public class UserServiceImpl implements UserService {
         return trainingLogMapper.queryProjectProportion(userId);
     }
 
+    /**
+     * 用户个人资料数据回显
+     * @return
+     */
+    @Override
+    public UserProfileVO getUserProfile() {
+        Long userId = BaseContext.getCurrentId();
+        UserProfileVO userProfileVO = userMapper.getUserProfile(userId);
+        return userProfileVO;
+    }
+
+    /**
+     * 修改个人信息
+     * @param userProfileUpdateDTO
+     */
+    @Transactional
+    @Override
+    public void updateProfile(UserProfileUpdateDTO dto) {
+        Long userId = BaseContext.getCurrentId();
+        // 更新 user_base
+        UserBase base = new UserBase();
+        base.setId(userId);
+        base.setUsername(dto.getUsername());
+        base.setEmail(dto.getEmail());
+        base.setPhone(dto.getPhone());
+        base.setAge(dto.getAge());
+        base.setAvatarUrl(dto.getAvatarUrl());
+        authMapper.updateById(base);
+
+        // 更新 user_info
+        UserInfo info = new UserInfo();
+        info.setUserId(userId);
+        info.setGender(dto.getGender());
+        info.setHeight(dto.getHeight());
+        info.setWeight(dto.getWeight());
+        info.setGoal(dto.getGoal());
+        info.setBio(dto.getBio());
+        userMapper.updateById(info); // ⚠ 注意 user_info 的主键是 userId
+    }
+
 
 }

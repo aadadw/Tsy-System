@@ -35,5 +35,15 @@
             status = #{status}
         WHERE id = #{id}
     </update>
+    <update id="updateById">
+        UPDATE mysystem.user_base
+        SET username = #{username},
+            email = #{email},
+            phone = #{phone},
+            age = #{age},
+            avatar_url = #{avatarUrl}
+        WHERE id = #{id}
+    </update>
+
 
 </mapper>

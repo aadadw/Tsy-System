@@ -3,7 +3,9 @@ package com.tsy.controller.auth;
 import com.alibaba.fastjson.JSONObject;
 import com.tsy.dto.ChatRequestDTO;
 import com.tsy.properties.DeepSeekPropertise;
+import com.tsy.result.Result;
 import com.tsy.utils.HttpClientUtil;
+import com.tsy.vo.ChatVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +29,7 @@ public class ChatController {
 
     @ApiOperation("聊天功能接口")
     @PostMapping
-    public String chat(@RequestBody ChatRequestDTO chatRequestDTO) throws IOException{
+    public Result<ChatVO> chat(@RequestBody ChatRequestDTO chatRequestDTO) throws IOException{
         log.info("测试一个配置类有没注入成功deepseekpropertise:{}",deepSeekPropertise);
 
         Map<String, Object> requestMap = new HashMap<>();
@@ -44,7 +46,8 @@ public class ChatController {
                 .getJSONObject(0)
                 .getJSONObject("message")
                 .getString("content");
-
-        return "🤖 AI 教练建议如下：\n\n" + reply;
+        ChatVO chatVO = new ChatVO();
+        chatVO.setContent(reply);
+        return Result.success(chatVO);
     }
 }
